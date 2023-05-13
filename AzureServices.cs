@@ -11,6 +11,7 @@ using Azure.AI.Vision.Common.Options;
 using Azure.AI.Vision.ImageAnalysis;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -196,6 +197,9 @@ public class AzureServices
                 fs.Write(imageBuffer.Span);
             }
             Console.WriteLine($"   File {outputImageFile} written to disk");
+
+            filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output\\" + outputImageFile);
+            Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
         }
         else // result.Reason == ImageAnalysisResultReason.Error
         {

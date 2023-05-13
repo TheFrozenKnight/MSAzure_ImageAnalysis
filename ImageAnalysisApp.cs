@@ -5,11 +5,29 @@
 // Azure AI Vision SDK -- C# Image Analysis Samples
 //
 using System;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 class ImageAnalysisApp
 {
+    static void DisplayCodeLinesFromFile()
+    {
+        string[] lines = File.ReadAllLines("Outro.txt");
+
+        foreach (string line in lines)
+        {
+            foreach (char c in line)
+            {
+                Console.Write(c);
+                Thread.Sleep(TimeSpan.FromMilliseconds(1));
+            }
+
+            Console.WriteLine();
+        }
+        Thread.Sleep(TimeSpan.FromSeconds(1));
+    }
     static void Main(string[] args)
     {
         char keyChar;
@@ -50,6 +68,7 @@ class ImageAnalysisApp
                         break;
                     case '0':
                         Console.WriteLine(" Exiting...");
+                        DisplayCodeLinesFromFile();
                         return;
                     default:
                         Console.WriteLine(" Invalid selection, choose again.");
@@ -88,6 +107,7 @@ class ImageAnalysisApp
                             break;
                         case '0':
                             Console.WriteLine(" Exiting...");
+                            DisplayCodeLinesFromFile();
                             return;
                         default:
                             Console.WriteLine(" Invalid selection, choose again.");
