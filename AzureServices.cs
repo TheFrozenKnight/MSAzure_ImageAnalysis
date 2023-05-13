@@ -190,8 +190,8 @@ public class AzureServices
             Console.WriteLine($"   Output image width = {segmentationResult.ImageWidth}");
 
             // Write the buffer to a file
-            string outputImageFile =filePath+ ".png";
-            using (var fs = new FileStream("output\\"+outputImageFile, FileMode.Create))
+            string outputImageFile = Path.GetFileNameWithoutExtension(filePath) + ".png";
+            using (var fs = new FileStream("output\\" + outputImageFile, FileMode.Create))
             {
                 fs.Write(imageBuffer.Span);
             }
