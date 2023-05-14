@@ -88,7 +88,7 @@ class ImageAnalysisApp
                         filePath = "input\\" + Console.ReadLine();
                         if (!IsImageFile(filePath))
                         {
-                            Console.WriteLine(" --- Invale File Type ---");
+                            Console.WriteLine(" --- Invalid File Type ---");
                             Console.WriteLine(" --- Please Select an Image ---");
                             Console.WriteLine("\n");
                             goto ImageLoopStart;
