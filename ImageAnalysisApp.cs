@@ -1,17 +1,25 @@
-//
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE.md file in the project root for full license information.
-//
-// Azure AI Vision SDK -- C# Image Analysis Samples
-//
+
 using System;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
 class ImageAnalysisApp
 {
+    static bool CheckImageExists(string imageUrl)
+    {
+        using (HttpClient client = new HttpClient())
+        {
+            HttpResponseMessage response = client.GetAsync(imageUrl).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+                if(IsImageFile(imageUrl))
+                    return true;
+            return false;
+        }
+        return false;
+    }
     static bool IsImageFile(string filePath)
     {
         string extension = Path.GetExtension(filePath);
@@ -90,8 +98,15 @@ class ImageAnalysisApp
                         }
                         break;
                     case '2':
+                        URLLoopStart:
                         Console.WriteLine(" Enter File URL");
                         filePath = Console.ReadLine();
+
+                        if (!CheckImageExists(filePath))
+                        {
+                            Console.WriteLine(" --- Image does not exist at URL: " + filePath);
+                            goto URLLoopStart;
+                        }
                         break;
                     case '0':
                         Console.WriteLine(" Exiting...");
