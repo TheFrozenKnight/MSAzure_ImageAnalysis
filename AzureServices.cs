@@ -25,7 +25,7 @@ public class AzureServices
         VisionSource imageSource;
         if (imgType == '1')
         {
-            imageSource = VisionSource.FromFile("input\\" + filePath);
+            imageSource = VisionSource.FromFile(filePath);
         }
         else
         {
@@ -159,7 +159,7 @@ public class AzureServices
 
         if (imgType == '1')
         {
-            imageSource = VisionSource.FromFile("input\\" + filePath);
+            imageSource = VisionSource.FromFile(filePath);
         }
         else
         {

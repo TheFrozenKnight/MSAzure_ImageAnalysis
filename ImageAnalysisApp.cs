@@ -12,6 +12,21 @@ using System.Threading;
 
 class ImageAnalysisApp
 {
+    static bool IsImageFile(string filePath)
+    {
+        string extension = Path.GetExtension(filePath);
+
+        if (extension != null)
+        {
+            string[] validExtensions = { ".png", ".jpg", ".jpeg", ".gif", ".bmp" };
+
+            // Compare the file extension (case-insensitive)
+            return validExtensions.Contains(extension.ToLower());
+        }
+
+        return false;
+    }
+
     static void DisplayCodeLinesFromFile()
     {
         string[] lines = File.ReadAllLines("Outro.txt");
@@ -47,6 +62,7 @@ class ImageAnalysisApp
         do
         {
 
+            SelectionLoopStart:
             Console.WriteLine(" Please choose one of the following: ");
             Console.WriteLine(" 1. Select image from local path");
             Console.WriteLine(" 2. Select image from URL");
@@ -59,8 +75,19 @@ class ImageAnalysisApp
                 switch (KeyImageType)
                 {
                     case '1':
+                        ImageLoopStart:
                         Console.WriteLine(" Enter File Name");
-                        filePath = Console.ReadLine();
+                        filePath = "input\\" + Console.ReadLine();
+                        if (!IsImageFile(filePath))
+                        {
+                            Console.WriteLine(" --- Select an Image ---");
+                            goto ImageLoopStart;
+                        }
+                        if (!File.Exists(filePath))
+                        {
+                            Console.WriteLine(" --- File Does not Exist  ---");
+                            goto ImageLoopStart;
+                        }
                         break;
                     case '2':
                         Console.WriteLine(" Enter File URL");
@@ -72,6 +99,7 @@ class ImageAnalysisApp
                         return;
                     default:
                         Console.WriteLine(" Invalid selection, choose again.");
+                        goto SelectionLoopStart;
                         break;
                 }
             }
