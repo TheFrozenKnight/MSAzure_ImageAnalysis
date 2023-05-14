@@ -49,9 +49,9 @@ class ImageAnalysisApp
 
             Console.WriteLine();
         }
-        Thread.Sleep(TimeSpan.FromSeconds(1));
+        Thread.Sleep(TimeSpan.FromSeconds(2.5f));
     }
-    static void Main(string[] args)
+    static void Main()
     {
         char keyChar;
         char KeyImageType;
@@ -88,12 +88,15 @@ class ImageAnalysisApp
                         filePath = "input\\" + Console.ReadLine();
                         if (!IsImageFile(filePath))
                         {
-                            Console.WriteLine(" --- Select an Image ---");
+                            Console.WriteLine(" --- Invale File Type ---");
+                            Console.WriteLine(" --- Please Select an Image ---");
+                            Console.WriteLine("\n");
                             goto ImageLoopStart;
                         }
                         if (!File.Exists(filePath))
                         {
                             Console.WriteLine(" --- File Does not Exist  ---");
+                            Console.WriteLine("\n");
                             goto ImageLoopStart;
                         }
                         break;
@@ -105,6 +108,7 @@ class ImageAnalysisApp
                         if (!CheckImageExists(filePath))
                         {
                             Console.WriteLine(" --- Image does not exist at URL: " + filePath);
+                            Console.WriteLine("\n");
                             goto URLLoopStart;
                         }
                         break;
@@ -114,6 +118,7 @@ class ImageAnalysisApp
                         return;
                     default:
                         Console.WriteLine(" Invalid selection, choose again.");
+                        Console.WriteLine("\n");
                         goto SelectionLoopStart;
                         break;
                 }
@@ -154,6 +159,7 @@ class ImageAnalysisApp
                             return;
                         default:
                             Console.WriteLine(" Invalid selection, choose again.");
+                            Console.WriteLine("\n");
                             break;
                     }
                 }

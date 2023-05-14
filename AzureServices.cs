@@ -61,13 +61,13 @@ public class AzureServices
 
             if (result.Caption != null)
             {
-                Console.WriteLine(" Caption:");
+                Console.WriteLine(" \nCaption:");
                 Console.WriteLine($"   \"{result.Caption.Content}\", Confidence {result.Caption.Confidence:0.0000}");
             }
 
             if (result.DenseCaptions != null)
             {
-                Console.WriteLine(" Dense Captions:");
+                Console.WriteLine(" \nDense Captions:");
                 foreach (var caption in result.DenseCaptions)
                 {
                     Console.WriteLine($"   \"{caption.Content}\", Bounding box {caption.BoundingBox}, Confidence {caption.Confidence:0.0000}");
@@ -76,7 +76,7 @@ public class AzureServices
 
             if (result.Objects != null)
             {
-                Console.WriteLine(" Objects:");
+                Console.WriteLine(" \nObjects:");
                 foreach (var detectedObject in result.Objects)
                 {
                     Console.WriteLine($"   \"{detectedObject.Name}\", Bounding box {detectedObject.BoundingBox}, Confidence {detectedObject.Confidence:0.0000}");
@@ -85,7 +85,7 @@ public class AzureServices
 
             if (result.Tags != null)
             {
-                Console.WriteLine($" Tags:");
+                Console.WriteLine($" \nTags:");
                 foreach (var tag in result.Tags)
                 {
                     Console.WriteLine($"   \"{tag.Name}\", Confidence {tag.Confidence:0.0000}");
@@ -94,7 +94,7 @@ public class AzureServices
 
             if (result.People != null)
             {
-                Console.WriteLine($" People:");
+                Console.WriteLine($" \nPeople:");
                 foreach (var person in result.People)
                 {
                     Console.WriteLine($"   Bounding box {person.BoundingBox}, Confidence {person.Confidence:0.0000}");
@@ -103,7 +103,7 @@ public class AzureServices
 
             if (result.CropSuggestions != null)
             {
-                Console.WriteLine($" Crop Suggestions:");
+                Console.WriteLine($" \nCrop Suggestions:");
                 foreach (var cropSuggestion in result.CropSuggestions)
                 {
                     Console.WriteLine($"   Aspect ratio {cropSuggestion.AspectRatio}: "
@@ -113,7 +113,7 @@ public class AzureServices
 
             if (result.Text != null)
             {
-                Console.WriteLine($" Text:");
+                Console.WriteLine($" \nText:");
                 foreach (var line in result.Text.Lines)
                 {
                     string pointsToString = "{" + string.Join(',', line.BoundingPolygon.Select(pointsToString => pointsToString.ToString())) + "}";
@@ -128,16 +128,16 @@ public class AzureServices
             }
 
             var resultDetails = ImageAnalysisResultDetails.FromResult(result);
-            Console.WriteLine($" Result details:");
+            Console.WriteLine($" \nResult details:");
             Console.WriteLine($"   Image ID = {resultDetails.ImageId}");
             Console.WriteLine($"   Result ID = {resultDetails.ResultId}");
             Console.WriteLine($"   Connection URL = {resultDetails.ConnectionUrl}");
-            Console.WriteLine($"   JSON result = {resultDetails.JsonResult}");
+            //Console.WriteLine($"   JSON result = {resultDetails.JsonResult}");
         }
         else // result.Reason == ImageAnalysisResultReason.Error
         {
             var errorDetails = ImageAnalysisErrorDetails.FromResult(result);
-            Console.WriteLine(" Analysis failed.");
+            Console.WriteLine(" \nAnalysis failed.");
             Console.WriteLine($"   Error reason : {errorDetails.Reason}");
             Console.WriteLine($"   Error code : {errorDetails.ErrorCode}");
             Console.WriteLine($"   Error message: {errorDetails.Message}");
@@ -177,7 +177,7 @@ public class AzureServices
 
             // Get the resulting output image buffer (PNG format)
             var imageBuffer = segmentationResult.ImageBuffer;
-            Console.WriteLine($" Segmentation result:");
+            Console.WriteLine($" \nSegmentation result:");
             Console.WriteLine($"   Output image buffer size (bytes) = {imageBuffer.Length}");
 
             // Get output image size
@@ -190,7 +190,7 @@ public class AzureServices
             {
                 fs.Write(imageBuffer.Span);
             }
-            Console.WriteLine($"   File {outputImageFile} written to disk");
+            Console.WriteLine($"   \nFile {outputImageFile} written to disk");
 
             filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output\\" + outputImageFile);
             Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
